@@ -75,6 +75,8 @@ export class FeedsService {
 
     const feeds = await this.prismaService.feed.findMany({
       where: { status: 1 },
+      orderBy: { syncTime: 'asc'}, // 按照同步时间倒序
+      take: 100  // 每小时更新100个公众号
     });
     this.logger.debug('feeds length:' + feeds.length);
 
