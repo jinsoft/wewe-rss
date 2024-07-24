@@ -136,12 +136,12 @@ export class TrpcRouter {
     list: this.trpcService.protectedProcedure
       .input(
         z.object({
-          limit: z.number().min(1).max(500).nullish(),
+          limit: z.number().min(1).max(3000).nullish(),
           cursor: z.string().nullish(),
         }),
       )
       .query(async ({ input }) => {
-        const limit = input.limit ?? 500;
+        const limit = input.limit ?? 3000;
         const { cursor } = input;
 
         const items = await this.prismaService.feed.findMany({
